@@ -5,31 +5,69 @@
   </head>
   <body>
     <div id="player">
-      <video id="movie" width="320" height="240" src="download.m4v" preload controls>
-      </video>
-      <div id="controls">
-        <a id="play" href="">Play</a>
-        <a id="pause" href="">Pause</a>
+      <div id="instructions" style="display:none;">
+        <h1>Blow up Rick Astley</h1>
+        <p>Try as you might, he'll always come back</p>
+        <center>
+          Block based destruction of HTML5 video, best viewed in webkit based browsers. 
+          <a href="http://www.craftymind.com/2010/04/20/blowing-up-html5-video-and-mapping-it-into-3d-space">Return to Craftymind Article</a><br/>
+        </center>
+        <br/>
+      </div> 
+      <div id="videoplayer"> 
+        <video id="sourcevid" loop="true" src="download.m4v" width="640" height="480"> 
+        </video> 
+        <canvas id="sourcecopy" width="640" height="480"></canvas> 
+      </div> 
+      <div>
+        <center> 
+          <canvas id="output" width="1000" height="600" onmousedown="dropBomb(event, this)" style="border: solid 5px #666666"></canvas>
+        </center>
+        <div id="controls" style="display:none;">
+          <a id="play" href="">Play</a>
+          <a id="pause" href="">Pause</a>
+        </div>
       </div>
     </div>
-    <script type="text/javascript">
-      var play = document.getElementById("play");
-      var pause = document.getElementById("pause");
-      var movie = document.getElementById("movie");
 
-      play.onclick = function(){
-        if(movie.paused){
-          movie.play();
-        }
-        return false;
-      };
-      pause.onclick = function(){
-        if(!movie.paused)
-        {
-          movie.pause();
-        }
-        return false;
-      };
+    <script type="text/javascript" charset="utf-8" src="script.js"></script>
+    <script type="text/javascript">
+      var blowUp = /blowup=absolutely/.test(location.href);
+
+      if(blowUp){
+        var sourcevid = document.getElementById("sourcevid");
+        var videoplayer = document.getElementById("videoplayer");
+        var instructions = document.getElementById("instructions");
+        instructions.style.display="block";
+        // hide the video player when blowing stuff up
+        videoplayer.style.display="none";
+        sourcevid.play();
+        init();
+      }
+      else{
+        var play = document.getElementById("play");
+        var pause = document.getElementById("pause");
+        var controls = document.getElementById("controls");
+        controls.style.display="block";
+        var sourcevid = document.getElementById("sourcevid");
+        sourcevid.controls=true;
+
+        play.onclick = function(){
+          if(movie.paused){
+            movie.play();
+          }
+          return false;
+        };
+        pause.onclick = function(){
+          if(!movie.paused)
+          {
+            movie.pause();
+          }
+          return false;
+        };
+      }
+
+
     </script>
   </body>
 </html>
