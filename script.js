@@ -9,6 +9,39 @@ var TILE_CENTER_WIDTH = 16;
 var TILE_CENTER_HEIGHT = 12;
 var SOURCERECT = {x:0, y:0, width:0, height:0};
 var PAINTRECT = {x:0, y:0, width:1000, height:600};
+var blowUp = /blowup=absolutely/.test(location.href);
+
+if(blowUp){
+  var sourcevid = document.getElementById("sourcevid");
+  var videoplayer = document.getElementById("videoplayer");
+  var instructions = document.getElementById("instructions");
+  instructions.style.display="block";
+  // hide the video player when blowing stuff up
+  videoplayer.style.display="none";
+  sourcevid.play();
+  init();
+}
+else{
+  var play = document.getElementById("play");
+  var pause = document.getElementById("pause");
+  var controls = document.getElementById("controls");
+  controls.style.display="block";
+  var movie = document.getElementById("sourcevid");
+
+  play.onclick = function(){
+    if(movie.paused){
+      movie.play();
+    }
+    return false;
+  };
+  pause.onclick = function(){
+    if(!movie.paused)
+    {
+      movie.pause();
+    }
+    return false;
+  };
+}
  
 function init(){
 	video = document.getElementById('sourcevid');
